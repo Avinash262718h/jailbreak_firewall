@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jailbreak Firewall | Analysis Report</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🛡️ JAILBREAK <span class="highlight">FIREWALL</span></div>
+        <div class="nav-links">
+            <a href="index.html">Analyze</a>
+            <a href="about.html">About Project</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="verdict-card" id="verdictCard">
+            <h2 id="verdictText">ANALYZING...</h2>
+            <p id="promptDisplay" class="scanned-prompt">"..."</p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <h3>🔓 JAILBREAK PROBABILITY</h3>
+                <div class="progress-bar">
+                    <div id="jbBar" class="fill" style="width: 0%"></div>
+                </div>
+                <div class="score-row">
+                    <span id="jbScoreValue" class="score-value">0.00</span>
+                    <span id="jbCategory" class="category-badge">Checking...</span>
+                </div>
+            </div>
+
+            <div class="metric-box">
+                <h3>☣️ HARMFULNESS INTENT</h3>
+                <div class="progress-bar">
+                    <div id="harmBar" class="fill" style="width: 0%"></div>
+                </div>
+                <div class="score-row">
+                    <span id="harmScoreValue" class="score-value">0.00</span>
+                    <span id="harmCategory" class="category-badge">Checking...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendation-box">
+            <h3>📋 AI RECOMMENDATION</h3>
+            <p id="recommendationText">loading...</p>
+        </div>
+
+        <a href="index.html" class="back-btn">← SCAN ANOTHER PROMPT</a>
+    </div>
+
+    <script>
+        // Run this as soon as the page opens
+        window.onload = function () {
+            const storedData = sessionStorage.getItem('analysisResult');
+
+            // If no data found, go back to home
+            if (!storedData) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const data = JSON.parse(storedData);
+            updateUI(data);
+        }
+
+        function updateUI(data) {
+            // Show the prompt user typed
+            document.getElementById('promptDisplay').innerText = `"${data.userPrompt}"`;
+
+            // Verdict Styling
+            const verdictCard = document.getElementById('verdictCard');
+            const verdictText = document.getElementById('verdictText');
+
+            verdictCard.className = 'verdict-card';
+
+            if (data.verdict === 'SAFE') {
+                verdictCard.classList.add('verdict-safe');
+                verdictText.innerText = "✅ SAFE TO PROCESS";
+            } else if (data.verdict === 'BLOCKED') {
+                verdictCard.classList.add('verdict-blocked');
+                verdictText.innerText = "🚫 BLOCKED: SECURITY RISK";
+            } else {
+                verdictCard.classList.add('verdict-flagged');
+                verdictText.innerText = "⚠️ FLAGGED FOR HUMAN REVIEW";
+            }
+
+            // Update Scores
+            updateMetric('jbScoreValue', 'jbCategory', 'jbBar', data.jailbreakScore, data.jailbreakCategory);
+            updateMetric('harmScoreValue', 'harmCategory', 'harmBar', data.harmfulnessScore, data.harmfulnessCategory);
+
+            document.getElementById('recommendationText').innerText = data.recommendation;
+        }
+
+        function updateMetric(scoreId, catId, barId, score, category) {
+            document.getElementById(scoreId).innerText = score.toFixed(4); // 4 decimal precision
+            document.getElementById(catId).innerText = category;
+
+            const bar = document.getElementById(barId);
+            bar.style.width = (score * 100) + "%";
+
+            // Color Logic
+            if (score < 0.3) bar.style.backgroundColor = '#238636'; // Green
+            else if (score < 0.7) bar.style.backgroundColor = '#d29922'; // Yellow
+            else bar.style.backgroundColor = '#da3633'; // Red
+        }
+    </script>
+</body>
+
+</html>

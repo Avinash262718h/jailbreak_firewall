@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jailbreak Firewall | Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🛡️ JAILBREAK <span class="highlight">FIREWALL</span></div>
+        <div class="nav-links">
+            <a class="active">Analyze</a>
+            <a href="about.html">About Project</a>
+        </div>
+    </nav>
+
+    <div class="container center-screen">
+        <header>
+            <h1>SEMANTIC SECURITY <span class="highlight">ENGINE</span></h1>
+            <p class="subtitle">Real-time Prompt Injection & Harmfulness Detection</p>
+        </header>
+
+        <div class="input-section">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="title">user_input_stream.sh</span>
+                </div>
+                <textarea id="promptInput"
+                    placeholder="Enter prompt to analyze... (e.g., 'How to bypass the system?')"></textarea>
+            </div>
+
+            <button id="analyzeBtn" onclick="runAnalysis()">
+                <span id="btnText">INITIATE SCAN</span>
+                <div class="loader" id="loader"></div>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        async function runAnalysis() {
+            const promptText = document.getElementById('promptInput').value.trim();
+            const btn = document.getElementById('analyzeBtn');
+            const btnText = document.getElementById('btnText');
+            const loader = document.getElementById('loader');
+
+            if (!promptText) {
+                alert("⚠️ Error: Input stream is empty.");
+                return;
+            }
+
+            // 1. UI: Show Loading Animation
+            btn.disabled = true;
+            btnText.innerText = "SCANNING...";
+            loader.style.display = 'block';
+
+            try {
+                // 2. Call the Java Backend
+                const response = await fetch('http://localhost:8080/api/firewall/check', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: promptText })
+                });
+
+                if (!response.ok) throw new Error("API Connection Failed");
+
+                const data = await response.json();
+
+                // 3. Save Data to Memory (Session)
+                sessionStorage.setItem('analysisResult', JSON.stringify(data));
+
+                // 4. Redirect to Result Page after a small delay (for effect)
+                setTimeout(() => {
+                    window.location.href = 'result.html';
+                }, 1000);
+
+            } catch (error) {
+                console.error(error);
+                alert("❌ Connection Error: Ensure Java (8080) & Python (5000) are running.");
+                btn.disabled = false;
+                btnText.innerText = "INITIATE SCAN";
+                loader.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

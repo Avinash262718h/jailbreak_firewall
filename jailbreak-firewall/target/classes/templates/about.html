@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jailbreak Firewall | About</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🛡️ JAILBREAK <span class="highlight">FIREWALL</span></div>
+        <div class="nav-links">
+            <a href="index.html">Analyze</a>
+            <a class="active">About Project</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="university-header">
+            <h1 class="uni-main">SATHYABAMA</h1>
+            <div class="uni-sub-wrapper">
+                <h2 class="uni-sub">INSTITUTE OF SCIENCE AND TECHNOLOGY</h2>
+            </div>
+            <h3 class="uni-status">(DEEMED TO BE UNIVERSITY)</h3>
+            <h3 class="uni-accreditation">CATEGORY - 1 UNIVERSITY BY UGC</h3>
+            <h3 class="uni-location">SRIPERUMBUDUR</h3>
+
+            <div class="project-title-section">
+                <div class="divider"></div>
+                <h1>Jailbreak Firewall: A Semantic Analysis Framework</h1>
+                <p class="subtitle">Project Phase-I Review</p>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>👨‍💻 PROJECT STUDENTS</h3>
+                <ul>
+                    <li><strong>Avinash Mutheboina</strong> (4110848)</li>
+                    <li><strong>Tankala Naga Praveen Kumar</strong> (42110850)</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>🎓 PROJECT GUIDE</h3>
+                <p><strong>Dr. D. SUSITRA Ph.D.</strong></p>
+                <p class="small-text">School of Computing - CSE</p>
+            </div>
+        </div>
+
+        <div class="methodology-section">
+            <h3>🚨 THE SECURITY CHALLENGE</h3>
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;">
+                <div class="info-card" style="border-left: 4px solid var(--accent-red);">
+                    <h4 style="color: var(--text-main); margin-bottom: 0.5rem; font-size: 1rem;">What are Jailbreak
+                        Prompts?</h4>
+                    <p style="font-size: 0.9rem; color: #8b949e; line-height: 1.6;">
+                        Jailbreak prompts are adversarial inputs designed to trick Large Language Models (LLMs) into
+                        bypassing their safety filters.
+                        Attackers use psychological manipulation, <strong>Roleplay</strong> (e.g., "Act as my
+                        grandmother"), and <strong>Hypothetical Scenarios</strong> to force the AI to generate
+                        restricted content like bomb recipes or hate speech.
+                    </p>
+                </div>
+
+                <div class="info-card" style="border-left: 4px solid var(--accent-blue);">
+                    <h4 style="color: var(--text-main); margin-bottom: 0.5rem; font-size: 1rem;">Why is this Firewall
+                        Necessary?</h4>
+                    <p style="font-size: 0.9rem; color: #8b949e; line-height: 1.6;">
+                        Traditional filters rely on <strong>Keyword Matching</strong> (blocking specific words). These
+                        are easily evaded using synonyms or creative writing.
+                        <br><br>
+                        Our project is necessary because it introduces <strong>Semantic Analysis</strong>—understanding
+                        the <em>intent</em> and <em>context</em> of a prompt, not just the words, providing a robust
+                        defense layer for AI systems.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="methodology-section">
+            <h3>⚙️ DUAL-SCORING MECHANISM</h3>
+            <p style="margin-bottom: 1rem; color: #8b949e;">Our firewall uses a novel two-stream architecture to ensure
+                zero-leakage security:</p>
+
+            <div class="flow-steps">
+                <div class="step">
+                    <span class="step-num">01</span>
+                    <h4>Jailbreak Analysis</h4>
+                    <p>Uses Semantic Embeddings (SBERT) to detect manipulative patterns (e.g., DAN mode, Persona
+                        adoption) by comparing the input against a vector database of known attack strategies.</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">02</span>
+                    <h4>Harmfulness Analysis</h4>
+                    <p>Scans the prompt for restricted topics (Explosives, Self-harm, Illegal Acts) using a secondary
+                        specialized dataset, ensuring that even if the intent is hidden, the topic is caught.</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">03</span>
+                    <h4>Risk Classification</h4>
+                    <p>The system combines both scores. If either the Jailbreak Score or Harmfulness Score breaches the
+                        threshold (0.7), the prompt is BLOCKED immediately.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="methodology-section" style="margin-top: 3rem; margin-bottom: 3rem;">
+            <h3>🛠️ TECHNOLOGY STACK</h3>
+            <div class="flow-steps">
+                <div class="step" style="padding: 1rem;">
+                    <h4 style="margin:0; font-size: 1rem;">Backend</h4>
+                    <p>Java Spring Boot 3.4</p>
+                </div>
+                <div class="step" style="padding: 1rem;">
+                    <h4 style="margin:0; font-size: 1rem;">AI Engine</h4>
+                    <p>Python Flask + PyTorch (SBERT)</p>
+                </div>
+                <div class="step" style="padding: 1rem;">
+                    <h4 style="margin:0; font-size: 1rem;">Database</h4>
+                    <p>MySQL (Relational Data)</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

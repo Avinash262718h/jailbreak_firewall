@@ -1,0 +1,670 @@
+:root {
+    /* Premium Dark Theme Palette */
+    --bg-page: #0d1117;
+    --bg-card: #161b22;
+    --bg-nav: rgba(13, 17, 23, 0.85);
+
+    --text-main: #c9d1d9;
+    --text-muted: #8b949e;
+    --text-header: #ffffff;
+
+    --border-color: #30363d;
+
+    --accent-blue: #58a6ff;
+    --accent-blue-glow: rgba(88, 166, 255, 0.15);
+
+    --accent-green: #238636;
+    --accent-green-bright: #3fb950;
+    --accent-green-glow: rgba(46, 160, 67, 0.15);
+
+    --accent-red: #da3633;
+    --accent-red-bright: #f85149;
+    --accent-red-glow: rgba(218, 54, 51, 0.15);
+
+    --accent-yellow: #d29922;
+    --accent-yellow-bright: #e3b341;
+    --accent-yellow-glow: rgba(210, 153, 34, 0.15);
+
+    --font-primary: 'JetBrains Mono', 'Courier New', monospace;
+    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================
+   1. GLOBAL RESET & BASE STYLES
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+/* =========================================
+   2. NAVIGATION BAR (Sticky & Blurry)
+   ========================================= */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: var(--bg-nav);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-header);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo .highlight {
+    color: var(--accent-blue);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent-blue);
+    text-shadow: 0 0 8px var(--accent-blue-glow);
+}
+
+/* =========================================
+   3. MAIN LAYOUT CONTAINER
+   ========================================= */
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    flex: 1;
+    /* Pushes footer down if we add one */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Aligns to top, but we can center via utility */
+}
+
+.center-screen {
+    justify-content: center;
+    /* Vertically center content if container is flex */
+    min-height: calc(100vh - 70px);
+    /* Full height minus nav */
+}
+
+/* Header Section */
+header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    color: var(--text-header);
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+}
+
+header h1 .highlight {
+    color: var(--accent-blue);
+    position: relative;
+    display: inline-block;
+}
+
+/* Subtle glowing underline effect for title */
+header h1 .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-blue);
+    box-shadow: 0 0 10px var(--accent-blue);
+    opacity: 0.6;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+/* =========================================
+   4. TERMINAL WIDGET (Input)
+   ========================================= */
+.input-section {
+    width: 100%;
+    animation: fadeInUp 0.7s ease-out;
+}
+
+.terminal-window {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.terminal-window:focus-within {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px var(--accent-blue-glow);
+}
+
+.terminal-header {
+    background: #090c10;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.terminal-header .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.dot.red {
+    background-color: #ff5f56;
+}
+
+.dot.yellow {
+    background-color: #ffbd2e;
+}
+
+.dot.green {
+    background-color: #27c93f;
+}
+
+.terminal-header .title {
+    margin-left: auto;
+    /* Push to right? Or center? */
+    margin-right: auto;
+    /* Centered relative to available space */
+    transform: translateX(-24px);
+    /* Rough compensation for dots to center strictly */
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+textarea {
+    width: 100%;
+    height: 180px;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    padding: 1.5rem;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+}
+
+textarea::placeholder {
+    color: #484f58;
+}
+
+/* Scan Button */
+#analyzeBtn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--accent-blue);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease, transform 0.1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#analyzeBtn:hover {
+    background: #4a9eff;
+    /* Slightly lighter */
+    box-shadow: 0 0 15px var(--accent-blue-glow);
+}
+
+#analyzeBtn:active {
+    transform: scale(0.98);
+}
+
+#analyzeBtn:disabled {
+    background: var(--border-color);
+    color: var(--text-muted);
+    cursor: wait;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Loader Spinner */
+.loader {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 0.8s linear infinite;
+    margin-left: 10px;
+}
+
+/* =========================================
+   5. RESULTS PAGE
+   ========================================= */
+
+/* Verdict Card */
+.verdict-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-card);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.verdict-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.scanned-prompt {
+    font-style: italic;
+    color: var(--text-muted);
+    background: rgba(48, 54, 61, 0.3);
+    padding: 1rem;
+    border-radius: 4px;
+    border-left: 3px solid var(--border-color);
+    font-size: 0.9rem;
+    word-wrap: break-word;
+}
+
+/* Verdict States */
+.verdict-safe {
+    border-color: var(--accent-green);
+    background: linear-gradient(180deg, var(--accent-green-glow) 0%, var(--bg-card) 100%);
+}
+
+.verdict-safe h2 {
+    color: var(--accent-green-bright);
+}
+
+.verdict-blocked {
+    border-color: var(--accent-red);
+    background: linear-gradient(180deg, var(--accent-red-glow) 0%, var(--bg-card) 100%);
+}
+
+.verdict-blocked h2 {
+    color: var(--accent-red-bright);
+}
+
+.verdict-flagged {
+    border-color: var(--accent-yellow);
+    background: linear-gradient(180deg, var(--accent-yellow-glow) 0%, var(--bg-card) 100%);
+}
+
+.verdict-flagged h2 {
+    color: var(--accent-yellow-bright);
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 600px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.metric-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.metric-box h3 {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #21262d;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: var(--accent-blue);
+    width: 0%;
+    transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Smooth easing */
+}
+
+/* Scores */
+.score-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.score-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.category-badge {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(139, 148, 158, 0.2);
+    color: var(--text-muted);
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+}
+
+/* AI Recommendation */
+.recommendation-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-blue);
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+}
+
+.recommendation-box h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-blue);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.recommendation-box p {
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+/* Back Button */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    margin-bottom: 2rem;
+}
+
+.back-btn:hover {
+    color: var(--accent-blue);
+    transform: translateX(-5px);
+}
+
+/* =========================================
+   6. ABOUT PAGE STYLES (If used)
+   ========================================= */
+.about-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2rem;
+}
+
+.college-name {
+    color: var(--accent-blue);
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.dept-name {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.info-card h3 {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.step {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.step:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-blue);
+}
+
+.step-num {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    font-size: 4rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.03);
+    z-index: 0;
+}
+
+.step h4,
+.step p {
+    position: relative;
+    z-index: 1;
+}
+
+.step h4 {
+    color: var(--accent-blue);
+    margin-bottom: 0.5rem;
+}
+
+.step p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* =========================================
+   8. UNIVERSITY BRANDING (MOCK)
+   ========================================= */
+.university-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    /* Official look */
+    color: #ffffff;
+}
+
+.uni-main {
+    font-size: 3rem;
+    font-weight: 900;
+    /* Extra Bold */
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+.uni-sub-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.uni-sub {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0.3rem 0;
+    border-bottom: 2px solid #ffffff;
+    /* The line under INSTITUTE... */
+    padding-bottom: 2px;
+    display: inline-block;
+}
+
+.uni-status {
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.uni-accreditation {
+    font-size: 0.95rem;
+    font-weight: 700;
+    /* Bold as per image */
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.uni-location {
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.project-title-section {
+    margin-top: 2rem;
+    font-family: var(--font-primary);
+    /* Back to Hacker Font for Project Name */
+}
+
+/* =========================================
+   7. ANIMATIONS
+   ========================================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
